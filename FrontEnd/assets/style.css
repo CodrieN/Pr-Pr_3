@@ -222,7 +222,7 @@ li:hover {
   margin-bottom: 1em;
 }
 
-/* ! semble le meilleur endroit pour commencer à travailler le css buttons */
+/** filter buttons */
 
 .buttons {
   display: flex;
@@ -249,7 +249,8 @@ li:hover {
   background-color: #1d6154;
 }
 
-/* ! fin de css button ---------------------------------------------------- */
+/**  fin de css button ---------------------------------------------------- */
+
 .gallery {
   width: 100%;
   display: grid;
