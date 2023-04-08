@@ -1,7 +1,7 @@
 fetch("http://localhost:5678/api/works")
   .then((response) => response.json())
   .then((data) => {
-    //* ---------------gallery-------------------------------------------------
+    //*****************gallery*******************************************
 
     data.forEach((works) => {
       const imageGrid = document.querySelector(".gallery");
@@ -17,18 +17,32 @@ fetch("http://localhost:5678/api/works")
       imageGrid.appendChild(figureElement);
     });
 
-    //* ---------------buttons-------------------------------------------------
+    // ***************filter buttons*******************************************
 
-    // * ajout des boutons
+    const buttonsFilter = document.querySelector(".buttons");
+    const buttonsCategories = new Set();
 
     data.forEach((works) => {
-      const buttonsFilter = document.querySelector(".buttons");
-      const setCategoryEllement = document.createElement("button");
- 
-    setCategoryEllement.classList.add("btn");
-    setCategoryEllement.textContent = works.category.name;
-    buttonsFilter.appendChild(setCategoryEllement);
-    
-  });
-  
+      buttonsCategories.add(works.category.name);
+    });
+
+    buttonsCategories.forEach((category) => {
+      const buttonElement = document.createElement("button");
+      buttonElement.textContent = category;
+      buttonsFilter.appendChild(buttonElement);
+      buttonElement.classList.add("btn");
+    });
+
+    const buttonAll = document.createElement("button");
+    buttonAll.textContent = "Tous";
+    buttonsFilter.insertBefore(buttonAll, buttonsFilter.firstChild);
+    buttonAll.classList.add("btn");
+
+    //***************filter figures*******************************************
+
+
+
+
+
+
   });
