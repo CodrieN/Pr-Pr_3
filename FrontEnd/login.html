@@ -1,50 +1,56 @@
 <!DOCTYPE html>
 <html lang="fr">
-
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>Sophie Bluel - Architecte d'intérieur</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap"
-        rel="stylesheet">
-    <meta name="description" content="">
-    <link rel="stylesheet" href="./assets/style.css">
-</head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap"
+      rel="stylesheet"
+    />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="./assets/style.css" />
+  </head>
 
-<body>
+  <body>
     <header>
-        <h1>Sophie Bluel <span>Architecte d'inteérieur/login</span></h1>
-        <nav>
-            <ul>
-                <li>projets</li>
-                <li>contact</li>
-                <li>login</li>
-                <li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
-            </ul>
-        </nav>
+      <h1>Sophie Bluel <span>Architecte d'inteérieur/login</span></h1>
+      <nav>
+        <ul>
+            <a href="/FrontEnd/index.html"><li>projets</li></a>
+            <a href="/FrontEnd/index.html"><li>contact</li></a>
+            <a href="/FrontEnd/login.html"><li id="navElement3">login</li></a>
+            <a href="https://www.instagram.com/sophieblue/?hl=fr"
+              ><li><img src="./assets/icons/instagram.png" alt="Instagram" /></li
+            ></a>
+        </ul>
+      </nav>
     </header>
     <main>
-        <div id="log">
-            <h2 id="login">Log In</h2>
-            <form action="#" method="post">
-                <label for="email">E-mail</label>
-                <input type="email" name="email" id="email">
-                <label for="pw">Mot de passe</label>
-                <input type="text" name="name" id="name">
-                <input type="submit" value="Se connecter">
-            </form>
+      <div id="log">
+        <h2 id="login">Log In</h2>
+        <form action="#" method="post">
+          <div id="box">
+            <label for="email">E-mail</label>
+            <input type="email" name="email" id="email" />
+          </div>
+          <div id="box2">
+          <label for="pw">Mot de passe</label>
+          <input type="text" name="name" id="name" />
         </div>
-        <div><link rel="stylesheet" href="#">Mot de passe oublié</div>
+          <input type="submit" value="Se connecter" id="connecter" />
+        </form>
+      </div>
+      <div><link rel="stylesheet" href="#" />Mot de passe oublié</div>
     </main>
     <footer>
-        <nav>
-            <ul>
-                <li>Mentions Légales</li>
-            </ul>
-        </nav>
+      <nav>
+        <ul id="legales">
+          <li>Mentions Légales</li>
+        </ul>
+      </nav>
     </footer>
-</body>
-
+  </body>
 </html>

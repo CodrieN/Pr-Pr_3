@@ -347,6 +347,11 @@ footer nav ul {
 
 /** Page login---------------------------------------------------------------------------  */
 
+#navElement3{
+  font-weight: bold;
+}
+
+
 #log,
 main {
   display: flex;
@@ -368,4 +373,33 @@ main {
   margin-bottom: 40px;
 }
 
+#box,#box2 {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  margin-bottom: 30px;
+}
+
+form label {
+  margin-bottom: 5px;
+}
+
+#email,
+#name {
+  border: none;
+  box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+  width: 379px;
+  height: 51px;
+}
+
+#connecter {
+  margin-top: 0;
+  height: 36px;
+}
+
+#legales { 
+  margin-top: 350px;
+background-color: white;
+margin-bottom: 0;
+}
 /* * */

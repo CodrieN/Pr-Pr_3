@@ -40,8 +40,23 @@ fetch("http://localhost:5678/api/works")
 
     //***************filter figures*******************************************
 
-
-
+    function filterFigures(category) {
+      const figures = document.querySelectorAll(".gallery figure");
+      figures.forEach((figure) => {
+        if (category === "Tous" || figure.dataset.category === category) {
+          figure.style.display = "block";
+        } else {
+          figure.style.display = "none";
+        }
+      });
+    }
+    const buttons = document.querySelectorAll(".btn");
+    buttons.forEach((button) => {
+      button.addEventListener("click", (event) => {
+        const category = event.target.textContent;
+        filterFigures(category);
+      });
+    });
 
 
 
