@@ -39,25 +39,57 @@ fetch("http://localhost:5678/api/works")
     buttonAll.classList.add("btn");
 
     //***************filter figures*******************************************
+    // Select all filter buttons
+    const filterButtons = document.querySelectorAll(".btn");
 
-    function filterFigures(category) {
-      const figures = document.querySelectorAll(".gallery figure");
-      figures.forEach((figure) => {
-        if (category === "Tous" || figure.dataset.category === category) {
-          figure.style.display = "block";
+    // Add event listener to each button
+    filterButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        // Get the selected category
+        const selectedCategory = button.textContent;
+
+        // Check if the button clicked is "Tous"
+        if (selectedCategory === "Tous") {
+          // Create new figures for all works
+          const gallery = document.querySelector(".gallery");
+          gallery.innerHTML = "";
+
+          data.forEach((works) => {
+            const figureElement = document.createElement("figure");
+            const imageElement = document.createElement("img");
+            const captionElement = document.createElement("figcaption");
+
+            imageElement.src = works.imageUrl;
+            captionElement.textContent = works.title;
+
+            figureElement.appendChild(imageElement);
+            figureElement.appendChild(captionElement);
+            gallery.appendChild(figureElement);
+          });
         } else {
-          figure.style.display = "none";
+          // Filter the works array by category
+          const filteredWorks = data.filter(
+            (works) => works.category.name === selectedCategory
+          );
+
+          // Remove all existing figures
+          const gallery = document.querySelector(".gallery");
+          gallery.innerHTML = "";
+
+          // Create new figures based on the filtered array
+          filteredWorks.forEach((works) => {
+            const figureElement = document.createElement("figure");
+            const imageElement = document.createElement("img");
+            const captionElement = document.createElement("figcaption");
+
+            imageElement.src = works.imageUrl;
+            captionElement.textContent = works.title;
+
+            figureElement.appendChild(imageElement);
+            figureElement.appendChild(captionElement);
+            gallery.appendChild(figureElement);
+          });
         }
       });
-    }
-    const buttons = document.querySelectorAll(".btn");
-    buttons.forEach((button) => {
-      button.addEventListener("click", (event) => {
-        const category = event.target.textContent;
-        filterFigures(category);
-      });
     });
-
-
-
   });
