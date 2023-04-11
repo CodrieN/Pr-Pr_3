@@ -1,93 +1,69 @@
+// ! Gallery*************************************************************************
+
+const buttonsFilter = document.querySelector(".buttons");
+const buttonsCategories = new Set();
+const gallery = document.querySelector(".gallery");
+function creatButton(content) {
+  const buttonElement = document.createElement("button");
+  buttonElement.textContent = content;
+  buttonsFilter.appendChild(buttonElement);
+  buttonElement.classList.add("btn");
+}
+function createWork(work) {
+  const figureElement = document.createElement("figure");
+  const imageElement = document.createElement("img");
+  const captionElement = document.createElement("figcaption");
+
+  imageElement.src = work.imageUrl;
+  captionElement.textContent = work.title;
+
+  figureElement.appendChild(imageElement);
+  figureElement.appendChild(captionElement);
+  gallery.appendChild(figureElement);
+}
+
 fetch("http://localhost:5678/api/works")
   .then((response) => response.json())
   .then((data) => {
     //*****************gallery*******************************************
 
-    data.forEach((works) => {
-      const imageGrid = document.querySelector(".gallery");
-      const figureElement = document.createElement("figure");
-      const imageElement = document.createElement("img");
-      const captionElement = document.createElement("figcaption");
+    data.forEach((work) => {
+      createWork(work);
 
-      imageElement.src = works.imageUrl;
-      captionElement.textContent = works.title;
-
-      figureElement.appendChild(imageElement);
-      figureElement.appendChild(captionElement);
-      imageGrid.appendChild(figureElement);
+      // ***************boutons filtre*******************************************
+      buttonsCategories.add(work.category.name);
     });
-
-    // ***************filter buttons*******************************************
-
-    const buttonsFilter = document.querySelector(".buttons");
-    const buttonsCategories = new Set();
-
-    data.forEach((works) => {
-      buttonsCategories.add(works.category.name);
-    });
-
+    creatButton("Tous");
     buttonsCategories.forEach((category) => {
-      const buttonElement = document.createElement("button");
-      buttonElement.textContent = category;
-      buttonsFilter.appendChild(buttonElement);
-      buttonElement.classList.add("btn");
+      creatButton(category);
     });
 
-    const buttonAll = document.createElement("button");
-    buttonAll.textContent = "Tous";
-    buttonsFilter.insertBefore(buttonAll, buttonsFilter.firstChild);
-    buttonAll.classList.add("btn");
-
-    //***************filter figures*******************************************
-    // Select all filter buttons
+    //***************filtre selon bouton cliqué*******************************************
+    //Selection de tous les boutons
     const filterButtons = document.querySelectorAll(".btn");
 
-    // Add event listener to each button
+    // Ajout de event listener pour chaque bouton
     filterButtons.forEach((button) => {
       button.addEventListener("click", () => {
-        // Get the selected category
+        // récupération de la category séléctionnée
         const selectedCategory = button.textContent;
-
-        // Check if the button clicked is "Tous"
+        gallery.innerHTML = "";
+        // On vérifie si le boutons cliqué correspond à "Tous"
         if (selectedCategory === "Tous") {
-          // Create new figures for all works
-          const gallery = document.querySelector(".gallery");
-          gallery.innerHTML = "";
+          // on recré une nouvelle figure pour chaque works
 
-          data.forEach((works) => {
-            const figureElement = document.createElement("figure");
-            const imageElement = document.createElement("img");
-            const captionElement = document.createElement("figcaption");
-
-            imageElement.src = works.imageUrl;
-            captionElement.textContent = works.title;
-
-            figureElement.appendChild(imageElement);
-            figureElement.appendChild(captionElement);
-            gallery.appendChild(figureElement);
+          data.forEach((work) => {
+            createWork(work);
           });
         } else {
-          // Filter the works array by category
+          // on filtre le tableau des works par category
           const filteredWorks = data.filter(
             (works) => works.category.name === selectedCategory
           );
 
-          // Remove all existing figures
-          const gallery = document.querySelector(".gallery");
-          gallery.innerHTML = "";
-
-          // Create new figures based on the filtered array
-          filteredWorks.forEach((works) => {
-            const figureElement = document.createElement("figure");
-            const imageElement = document.createElement("img");
-            const captionElement = document.createElement("figcaption");
-
-            imageElement.src = works.imageUrl;
-            captionElement.textContent = works.title;
-
-            figureElement.appendChild(imageElement);
-            figureElement.appendChild(captionElement);
-            gallery.appendChild(figureElement);
+          // création des figures selon la category selectionnée
+          filteredWorks.forEach((work) => {
+            createWork(work);
           });
         }
       });

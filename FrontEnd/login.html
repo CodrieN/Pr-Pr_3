@@ -19,12 +19,12 @@
       <h1>Sophie Bluel <span>Architecte d'inteérieur/login</span></h1>
       <nav>
         <ul>
-            <a href="/FrontEnd/index.html"><li>projets</li></a>
-            <a href="/FrontEnd/index.html"><li>contact</li></a>
-            <a href="/FrontEnd/login.html"><li id="navElement3">login</li></a>
-            <a href="https://www.instagram.com/sophieblue/?hl=fr"
-              ><li><img src="./assets/icons/instagram.png" alt="Instagram" /></li
-            ></a>
+          <a href="/FrontEnd/index.html#portfolio"><li>projets</li></a>
+          <a href="/FrontEnd/index.html#contact"><li>contact</li></a>
+          <a href="/FrontEnd/login.html"><li id="navElement3">login</li></a>
+          <a href="https://www.instagram.com/sophieblue/?hl=fr"
+            ><li><img src="./assets/icons/instagram.png" alt="Instagram" /></li
+          ></a>
         </ul>
       </nav>
     </header>
@@ -37,13 +37,18 @@
             <input type="email" name="email" id="email" />
           </div>
           <div id="box2">
-          <label for="pw">Mot de passe</label>
-          <input type="text" name="name" id="name" />
-        </div>
+            <label for="pw">Mot de passe</label>
+            <input type="password" name="password" id="password" />
+          </div>
           <input type="submit" value="Se connecter" id="connecter" />
         </form>
       </div>
-      <div><link rel="stylesheet" href="#" />Mot de passe oublié</div>
+      <div>
+        <link rel="stylesheet" href="#" />Mot de passe oublié
+        <!-- ! à supprimer en fin d'exercice -->
+        <span id="red">|sophie.bluel@test.tld S0phie |</span>
+        <!-- ! à supprimer en fin d'exercice -->
+      </div>
     </main>
     <footer>
       <nav>
@@ -52,5 +57,6 @@
         </ul>
       </nav>
     </footer>
+    <script src="./fonction(login).js"></script>
   </body>
 </html>
