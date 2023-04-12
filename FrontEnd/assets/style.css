@@ -166,8 +166,9 @@ body {
 
 header {
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
-  margin: 50px 0;
+  margin: 0;
 }
 
 section {
@@ -214,6 +215,8 @@ a:hover {
 #introduction {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 0;
 }
 
 #introduction figure {
@@ -239,8 +242,11 @@ a:hover {
 }
 
 #portfolio h2 {
-  text-align: center;
+  /* text-align: center; */
   margin-bottom: 1em;
+  position: relative;
+  top: 0px;
+  left: 475px;
 }
 
 /** filter buttons */
@@ -408,4 +414,74 @@ form label {
 }
 
 /*! à supprimer en fin d'exercice  */
+
+/* ! elements display none du mode edition------------------------------------------------------------------------------------------ */
+
+.black {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 59px;
+  margin-bottom: 50px;
+  background-color: black;
+  color: white;
+}
+
+i,
+#adminNav p {
+  padding-right: 10px;
+}
+
+#blackBtn {
+  font-family: "Syne";
+  font-weight: 700;
+  color: black;
+  background-color: white;
+  margin-left: 10px;
+  margin: 0;
+  width: auto;
+  padding-inline: 25px;
+  padding-block: 7px;
+  text-align: center;
+  border-radius: 60px;
+  border: 2px solid black;
+  height: 44px;
+}
+#blackBtn:hover {
+  color: rgb(255, 255, 255);
+  background-color: #000000;
+  border: 2px solid white;
+}
+
+#firstElement {
+  display: inline-flex;
+  justify-content: space-between;
+  margin-top: 39px;
+}
+
+.adminPic {
+  display: flex;
+  width: 100%;
+  margin-left: 60px;
+  padding-top: 10px;
+}
+
+.mesProjets {
+  display: flex;
+  justify-content: center;
+}
+
+.adminWorks {
+  display: flex;
+  position: relative;
+  top: -50px;
+  left: 700px;
+}
+
+.adminPrivilege {
+  /* * -------------------------------------------------------------------------------------------------------------------------- */
+  /* display: none;  */
+  /* * -------------------------------------------------------------------------------------------------------------------------- */
+}
 /* * */
