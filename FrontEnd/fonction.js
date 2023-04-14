@@ -77,31 +77,25 @@ fetch("http://localhost:5678/api/works")
 const token = sessionStorage.getItem("token");
 
 if (token !== null) {
+  // ! supprimer en fin d'exercice
   console.log("le token existe dans sessionStorage");
-
+  // ! supprimer en fin d'exercice
   // changer la class .adminPrivilege afin de faire apparaitre les elements de DOM permettant les modifications | masquer les boutons de filtres | changer login en logout
   let adminPrivilege = document.querySelectorAll(".adminPrivilege");
   let maskbuttons = document.querySelector(".buttons");
+
   adminPrivilege.forEach(function (element) {
     element.style.display = "flex";
   });
   maskbuttons.style.display = "none";
 
+  const element = document.getElementById("login");
+element.innerHTML = "logout";
 
-
-  let login = document.querySelector("login");
-  login.innerText = "logout";
-  console.log(login);
-
-
-
-
-
-
+  
 } else {
   console.log("JWT does not exist in sessionStorage");
 }
 
-// todo | penser à utiliser des .innerText =  "logout" et .innerText = "login"  dans un if/else au moment
-// todo | où l'on vérifie si le token est "stocké", innerText permet en js de changer directement le texte
-// todo | d'un élément HTML
+// todo logout non fonctionnel !
+

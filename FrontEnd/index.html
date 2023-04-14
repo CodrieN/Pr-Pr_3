@@ -30,9 +30,11 @@
         <h1>Sophie Bluel <span>Architecte d'inteérieur</span></h1>
         <nav>
           <ul>
-            <a href="#portfolio"><li><span id="login">projets</span></li></a>
+            <a href="#portfolio"
+              ><li>projets</li></a
+            >
             <a href="#contact"><li>contact</li></a>
-            <a href="/FrontEnd/login.html"><li>login</li></a>
+            <a href="/FrontEnd/login.html"><li><span id="login">login</span></li></a>
             <a href="#"
               ><li>
                 <img src="./assets/icons/instagram.png" alt="Instagram" /></li
@@ -72,13 +74,27 @@
 
       <section id="portfolio">
         <h2>Mes Projets</h2>
-        <span class="adminPrivilege adminWorks" id="adminWorks">
-          <span><i class="fa-regular fa-pen-to-square"></i></span>
-          <p>modifier</p>
-        </span>
+        <a href="#modal1">
+          <span class="adminPrivilege adminWorks" id="adminWorks">
+            <span><i class="fa-regular fa-pen-to-square"></i></span>
+            <p>modifier</p>
+          </span>
+        </a>
+        <!-- todo modal  ajouter style="display: none;" en fin de modal !!! -->
+        <aside id="modal1" class="modal" aria-hidden="true" role="dialog" aria-labelledby="titleModal" style="display: none;"> 
+          <div class="modal-wrapper">
+<h3 id="titleModal">Galerie photo</h3>
+<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto magnam fugiat corporis? Praesentium tenetur saepe quas officiis earum veniam quo incidunt? Repellendus atque fuga minima obcaecati qui recusandae temporibus alias?</p>
+
+          </div>
+        </aside>
+
+        <!-- todo modal -->
         <div class="buttons"></div>
         <!-- * début gallery -->
-        <div class="gallery" id="gallery"></div>
+        <div class="gallery" id="gallery">
+
+        </div>
       </section>
       <section id="contact">
         <h2>Contact</h2>
@@ -105,3 +121,4 @@
     <script src="./fonction.js"></script>
   </body>
 </html>
+;
