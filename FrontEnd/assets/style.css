@@ -244,10 +244,9 @@ a:hover {
 #portfolio h2 {
   display: flex;
   flex-direction: column;
- align-items: center;
- margin-bottom: 50px;
- margin-top: 70px;F
-
+  align-items: center;
+  margin-bottom: 50px;
+  margin-top: 70px;
 }
 
 /** filter buttons */
@@ -416,7 +415,7 @@ form label {
 
 /*! à supprimer en fin d'exercice  */
 
-/* ! elements display none du mode edition------------------------------------------------------------------------------------------ */
+/* ! elements display none du mode edition----------------------------------------------------------- */
 
 .black {
   display: flex;
@@ -482,35 +481,33 @@ i,
 }
 
 .adminPrivilege {
-  /* * -------------------------------------------------------------------------------------------------------------------------- */
   display: none;
+}
 
-  /* * -------------------------------------------------------------------------------------------------------------------------- */
-}
-/* * -------------------------------------------------------------------------------------------------------------------------- */
-/* ! MODAL */
-******************************************************************************************************************
-  .modal {
-  position: sticky;
-  top: 0px;
-  left: 0%;
-  width: 100%;
-  height: auto;
-  background: rgb(255, 0, 0);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
+/* ! MODAL ---------------------------------------------------------- */
 
 .modal-wrapper {
+  display: grid;
+  grid-gap: 0px;
+  grid-template-columns: (3, 1fr);
+
   border-radius: 15px;
-  background: #b4afaf;
-  width: 1000px;
-  height: auto;
-  max-width: calc(100vw - 20px);
-  max-height: calc(100vh - 20px);
+  background: #ffffff;
+  width: 731px;
+  height: 630px;
   padding: 20px;
 }
-/* ! MODAL */
-/* * -------------------------------------------------------------------------------------------------------------------------- */
-/* * */
+
+.modal-wrapper img {
+  
+  width: 30%;
+  height: 30%;
+}
+
+
+/* ! MODAL ---------------------------------------------------------- */
+
+
+dialog::backdrop {
+  background: rgba(0, 0, 0, 0.5);
+}

@@ -3,13 +3,14 @@
 const buttonsFilter = document.querySelector(".buttons");
 const buttonsCategories = new Set();
 const gallery = document.querySelector(".gallery");
+const modalWrapper = document.querySelector(".modal-wrapper");
 function creatButton(content) {
   const buttonElement = document.createElement("button");
   buttonElement.textContent = content;
   buttonsFilter.appendChild(buttonElement);
   buttonElement.classList.add("btn");
 }
-function createWork(work) {
+function createWork(work, container) {
   const figureElement = document.createElement("figure");
   const imageElement = document.createElement("img");
   const captionElement = document.createElement("figcaption");
@@ -19,7 +20,7 @@ function createWork(work) {
 
   figureElement.appendChild(imageElement);
   figureElement.appendChild(captionElement);
-  gallery.appendChild(figureElement);
+  container.appendChild(figureElement);
 }
 
 fetch("http://localhost:5678/api/works")
@@ -28,7 +29,8 @@ fetch("http://localhost:5678/api/works")
     //*****************gallery*******************************************
 
     data.forEach((work) => {
-      createWork(work);
+      createWork(work, gallery);
+      createWork(work, modalWrapper);
 
       // ***************boutons filtre*******************************************
       buttonsCategories.add(work.category.name);
@@ -72,14 +74,11 @@ fetch("http://localhost:5678/api/works")
 
 //***************ADMIN PRIVILEGE*******************************************
 
-//Vérifier si le JWT est stocké dans le sessionStorage
+//Vérifier si le JWT est stocké dans le localStorage
 
-const token = sessionStorage.getItem("token");
-
+const token = localStorage.getItem("token");
+const authButton = document.getElementById("login");
 if (token !== null) {
-  // ! supprimer en fin d'exercice
-  console.log("le token existe dans sessionStorage");
-  // ! supprimer en fin d'exercice
   // changer la class .adminPrivilege afin de faire apparaitre les elements de DOM permettant les modifications | masquer les boutons de filtres | changer login en logout
   let adminPrivilege = document.querySelectorAll(".adminPrivilege");
   let maskbuttons = document.querySelector(".buttons");
@@ -89,13 +88,25 @@ if (token !== null) {
   });
   maskbuttons.style.display = "none";
 
-  const element = document.getElementById("login");
-element.innerHTML = "logout";
+  authButton.innerHTML = "logout";
 
-  
+  // -------------logout---------------------------------------------- 
+  authButton.addEventListener("click", (e) => {
+    localStorage.clear();
+    e.preventDefault();
+    window.location.reload();
+  });
 } else {
-  console.log("JWT does not exist in sessionStorage");
+  console.log("JWT does not exist in localStorage");
 }
 
-// todo logout non fonctionnel !
+//***************MODAL*******************************************
 
+// todo if création works dans modale, condition => afficher les icones et texte éditer
+
+const BtnModificationWorks = document.querySelector("#adminWorks");
+
+BtnModificationWorks.addEventListener("click", () => {
+  console.log(BtnModificationWorks);
+  modalWrapper.showModal();
+})

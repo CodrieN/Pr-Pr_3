@@ -23,23 +23,14 @@ function verifyLogin(email, password) {
       if (data.userId && data.token) {
         // Connexion réussie, rediriger l'utilisateur vers la page d'accueil
         window.location.href = "./index.html";
-        sessionStorage.setItem("token", data.token); //gader en memoir le JWT
-        sessionStorage.setItem(
-          "tokenExpire",
-          new Date().getTime() + 60 * 60 * 1000
-        ); // faire expirer au bout de 60 minutes
-  
+        localStorage.setItem("token", data.token); //gader en memoir le JWT
       } else {
         // Identifiant ou mot de passe invalide
         alert("Identifiant ou mot de passe incorrect");
       }
-
-
-
     })
     .catch((error) => {
       // Gérer les erreurs
       console.error("Erreur:", error);
     });
 }
-// ? https://github.com/CodrieN/Pr-Pr_3/blob/secondary/Backend/controllers/users.controller.js
