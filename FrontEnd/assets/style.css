@@ -487,11 +487,12 @@ i,
 /* ! MODAL ---------------------------------------------------------- */
 
 .modal-wrapper {
-  display: grid;
-  grid-gap: 0px;
-  grid-template-columns: (3, 1fr);
-
+  /* display: grid;
+  grid-gap: 10px 10px;
+  grid-template-columns: (5, 1fr); */
+  border: none;
   border-radius: 15px;
+  /* overflow: hidden; */
   background: #ffffff;
   width: 731px;
   height: 630px;
@@ -499,15 +500,12 @@ i,
 }
 
 .modal-wrapper img {
-  
-  width: 30%;
-  height: 30%;
+  width: 10%;
+  height: 10%;
 }
-
 
 /* ! MODAL ---------------------------------------------------------- */
 
-
 dialog::backdrop {
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.74);
 }

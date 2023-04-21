@@ -4,6 +4,7 @@ const buttonsFilter = document.querySelector(".buttons");
 const buttonsCategories = new Set();
 const gallery = document.querySelector(".gallery");
 const modalWrapper = document.querySelector(".modal-wrapper");
+
 function creatButton(content) {
   const buttonElement = document.createElement("button");
   buttonElement.textContent = content;
@@ -30,7 +31,7 @@ fetch("http://localhost:5678/api/works")
 
     data.forEach((work) => {
       createWork(work, gallery);
-      createWork(work, modalWrapper);
+      createWork(work, modalGrid);
 
       // ***************boutons filtre*******************************************
       buttonsCategories.add(work.category.name);
@@ -90,7 +91,7 @@ if (token !== null) {
 
   authButton.innerHTML = "logout";
 
-  // -------------logout---------------------------------------------- 
+  // -------------logout----------------------------------------------
   authButton.addEventListener("click", (e) => {
     localStorage.clear();
     e.preventDefault();
@@ -108,5 +109,12 @@ const BtnModificationWorks = document.querySelector("#adminWorks");
 
 BtnModificationWorks.addEventListener("click", () => {
   console.log(BtnModificationWorks);
-  modalWrapper.showModal();
-})
+  modalWrapper.showModal(); // ? toujours capable de scoll le <main> ?
+});
+
+if ( modalWrapper.showModal() = true ) {
+ console.log("ca marche");
+}
+// todo if modalWrapper.showModal() = true => modalWrapper.style.display = "grid";
+
+// todo utiliser | The showModal() method is often used together with the close() method | pour fermer modalWrapper si click croix ou hors <dialog>
