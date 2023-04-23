@@ -108,13 +108,31 @@ if (token !== null) {
 const BtnModificationWorks = document.querySelector("#adminWorks");
 
 BtnModificationWorks.addEventListener("click", () => {
-  console.log(BtnModificationWorks);
+  // console.log(BtnModificationWorks);
   modalWrapper.showModal(); // ? toujours capable de scoll le <main> ?
-});
 
-if ( modalWrapper.showModal() = true ) {
- console.log("ca marche");
-}
-// todo if modalWrapper.showModal() = true => modalWrapper.style.display = "grid";
+
+// function openCheck(modalWrapper) {
+//   if (modalWrapper.open) {
+//     console.log("ca marche");
+//     modalWrapper.style.display = "grid";
+//     modalWrapper.style.gridGap = "10px 10px";
+//     modalWrapper.style.gridTemplateColumns = "(5, 1fr)";
+//   }else{
+//     modalWrapper.style.display = "none";
+//     }
+
+// }
+// openCheck(modalWrapper);
+
+// ! boucle ?  while(true) ?
+// while (modalWrapper.open === true) {
+//       console.log("ca marche");
+//       modalWrapper.style.display = "grid";
+//       modalWrapper.style.gridGap = "10px 10px";
+//       modalWrapper.style.gridTemplateColumns = "(5, 1fr)";
+// }
+// ! boucle ?
+});
 
 // todo utiliser | The showModal() method is often used together with the close() method | pour fermer modalWrapper si click croix ou hors <dialog>
