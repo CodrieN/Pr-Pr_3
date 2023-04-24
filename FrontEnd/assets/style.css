@@ -487,9 +487,6 @@ i,
 /* ! MODAL ---------------------------------------------------------- */
 
 .modal-wrapper {
-  /* display: grid;
-  grid-gap: 10px 10px;
-  grid-template-columns: (5, 1fr); */
   border: none;
   border-radius: 15px;
   /* overflow: hidden; */
@@ -508,4 +505,21 @@ i,
 
 dialog::backdrop {
   background: rgba(0, 0, 0, 0.74);
+}
+
+#toCloseDialog {
+  z-index: 10;
+  position: absolute;
+  border: none;
+  border-radius: 15px;
+  /* overflow: hidden; */
+  background: #e71414;
+  width: 731px;
+  height: 630px;
+  padding: 20px;
+}
+
+
+#deleteGallery{
+  color: #e71414;
 }
