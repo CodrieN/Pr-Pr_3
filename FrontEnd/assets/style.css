@@ -105,7 +105,7 @@ section {
 }
 
 html {
-  background-color: #f9f5dd; /* ? couleur arbitraire------------------------- */
+  background-color: #fffef8;
   scroll-behavior: smooth;
 }
 
@@ -212,6 +212,10 @@ a:hover {
   color: #b1663c;
 }
 
+*:focus {
+  outline: none;
+}
+
 #introduction {
   display: flex;
   align-items: center;
@@ -276,6 +280,12 @@ a:hover {
   background-color: #1d6154;
 }
 
+.btn:focus {
+  color: white;
+  background-color: #1d6154;
+  border: 2px solid #1d6154;
+}
+
 /**  fin de css button ---------------------------------------------------- */
 
 .gallery {
@@ -310,7 +320,9 @@ a:hover {
   flex-direction: column;
 }
 
-#contact input {
+#contact input,
+#modal-wrapper input,
+#modal-wrapper select {
   height: 50px;
   font-size: 1.2em;
   border: none;
@@ -335,6 +347,8 @@ input[type="submit"] {
   width: 180px;
   text-align: center;
   border-radius: 60px;
+  justify-content: center;
+  align-items: center;
 }
 
 footer nav ul {
@@ -390,6 +404,7 @@ form label {
   margin-bottom: 5px;
 }
 
+/* ! taille de box à vérifier--------------------------------- */
 #email,
 #password {
   border: none;
@@ -485,7 +500,7 @@ i,
 }
 
 /* * MODAL ----------------------------------------------------------------------------------- */
-/* *modal 1/3--------------------------------------------------------------------------------- */
+/* *modal 1/2--------------------------------------------------------------------------------- */
 
 .modal-wrapper {
   border: none;
@@ -493,7 +508,7 @@ i,
   overflow: hidden;
   background: #ffffff;
   width: 630px;
-  height: 731px;
+  height: fit-content;
   padding: 100px;
 }
 
@@ -501,24 +516,35 @@ dialog::backdrop {
   background: rgba(0, 0, 0, 0.74);
 }
 
-.modal-wrapper h3 {
-  font-size: xx-large;
+#modalHeader {
   display: flex;
-  justify-content: center;
-  padding-bottom: 40px;
+  flex-direction: row;
+}
+
+#titleModal {
+  font-size: xx-large;
+  padding: 40px;
+  position: absolute;
+  top: 7px;
+  left: 300px;
 }
 
 .fa-xmark {
   color: #000000;
   position: absolute;
-  top: 30px;
+  top: 40px;
   left: 770px;
   background-color: white;
   border: none;
-  margin: auto;
+  margin: 0px;
   padding: 0px;
   width: 30px;
   height: 30px;
+  scale: 2;
+}
+
+#modalGrid {
+  padding-top: 80px;
 }
 
 .modal-wrapper img {
@@ -526,7 +552,7 @@ dialog::backdrop {
   height: 10%;
 }
 
-#hr {
+hr {
   margin-block: 50px;
 }
 
@@ -582,27 +608,103 @@ dialog::backdrop {
 
 /* todo travail sur trash css + ajout de arrowcross */
 
-/* *modal 2/3--------------------------------------------------------------------------------- */
+/* *modal 2/2--------------------------------------------------------------------------------- */
 
 #arrow {
   position: absolute;
-  top: 38px;
-  left: 42px;
+  top: 40px;
+  left: 60px;
+  display: none;
+  scale: 2;
+}
+
+#bluePicDiv {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  background-color: #e8f1f6;
+  height: auto;
+  margin: 10px;
+  padding: 10px;
+}
+
+form {
+  display: flex;
+  align-items: center;
+}
+
+dialog form {
   display: none;
 }
 
-/* *modal 3/3--------------------------------------------------------------------------------- */
+#Titre,
+#cat {
+  margin-top: 30px;
+  align-items: flex-start;
+}
 
-#toCloseDialog {
-  z-index: 10;
-  position: absolute;
-  border: none;
+form i {
+  color: #b9c5cc;
+  font-size: xx-large;
+  padding: 0;
+  font-size: 4em;
+  font-weight: lighter;
+  margin: 20px;
+  width: 56px;
+}
+
+#file-upload {
+  display: none;
+}
+
+form label span {
+  all: unset;
+  color: #306685;
+  background-color: #cbd6dc;
   border-radius: 15px;
-  /* overflow: hidden; */
-  background: #e71414;
-  width: 630px;
-  height: 731px;
-  padding: 20px;
+  padding-inline: 20px;
+  padding-block: 10px;
+}
+
+form input :first-child {
+  all: unset;
+  color: #306685;
+  background-color: #cbd6dc;
+  border-radius: 15px;
+  padding-inline: 20px;
+  padding-block: 10px;
+  display: flex;
+  align-items: center;
+}
+
+form * {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 420px;
+  gap: 30px;
+}
+
+#btnvalidate {
+  justify-content: center;
+  font-family: "Syne";
+  font-weight: 700;
+  color: white;
+  background-color: #a7a7a7;
+  width: 100px;
+  padding-inline: 25px;
+  padding-block: 7px;
+  text-align: center;
+  border-radius: 60px;
+  border: 2px solid #a7a7a7;
+}
+
+#btnvalidate:hover,
+#btnvalidate:focus {
+  color: #6e6d6d;
+  background-color: white;
 }
 
 #deleteGallery {

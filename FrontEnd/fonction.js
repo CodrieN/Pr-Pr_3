@@ -33,7 +33,6 @@ function createWork(work, container, type = "gallery") {
 
     imageElement.addEventListener("mouseover", (event) => {
       event.target.nextElementSibling.style.display = "block";
-      console.log("ca fonctionne");
     });
 
     imageElement.addEventListener("mouseout", (event) => {
@@ -51,6 +50,7 @@ function createWork(work, container, type = "gallery") {
     });
 
     trash.addEventListener("click", () => {
+      // e.preventDefault();
       fetch("http://localhost:5678/api/works/" + work.id, {
         method: "DELETE",
         headers: { Authorization: "Bearer " + localStorage.getItem("token") },
@@ -110,6 +110,7 @@ fetch("http://localhost:5678/api/works")
         }
       });
     });
+    filterButtons[0].focus();
   });
 
 //***************ADMIN PRIVILEGE*******************************************
@@ -144,84 +145,138 @@ if (token !== null) {
 
 const BtnModificationWorks = document.querySelector("#adminWorks");
 
-BtnModificationWorks.addEventListener("click", () => {
-  // console.log(BtnModificationWorks);
-  modalWrapper.showModal();
-  if (modalWrapper.open) {
-    console.log("ca marche");
+BtnModificationWorks.addEventListener(
+  "click",
+  () => {
+    // console.log(BtnModificationWorks);
+    modalWrapper.showModal();
+
     modalGrid.style.display = "grid";
     modalGrid.style.alignItems = "center";
     modalGrid.style.gridGap = "10px 10px";
     modalGrid.style.gridTemplateColumns = "auto auto auto auto auto";
     modalGrid.style.gridTemplateRow = "300px 300px 300px ";
-  } else {
-    modalWrapper.style.display = "none";
   }
-});
 
-// * fermer la modale au click sur la croix || hors modal----------------------------------
+);
+
+// * fermer la modale au click sur la croix ----------------------------------
 
 const x = document.querySelector(".fa-xmark");
 
-x.addEventListener("click",
-  () => {
-    console.log("cela fonctionne bien");
-    modalWrapper.close();
-  });
+x.addEventListener("click", () => {
+  modalWrapper.close();
+  addWorkForm.reset();
+});
+
+// ! fermer la modale hors champ -----------------------------------------------------------------------------------
+// Get the modal
+// const modal = document.getElementById("myModal");
 
 
-
-// * fermer la modale hors champ -----------------------------------------------------------------------------------
-
-// modalWrapper.addEventListener('click', (e) => {
-//   if (e.target.id !== "modal-wrapper") {
-//     console.log("fermer la modal");
-//       modalWrapper.close();
-//       e.stopPropagation();
+// // When the user clicks anywhere outside of the modal, close it
+// window.onclick = function(event) {
+//   if (event.target == modalWrapper) {
+//     modal.style.display = "none";
 //   }
-// });
+//   else if (event.target.closest(".modal-content")) {
+//     // Clicked inside the modal
+//     return;
+//   }
+// };
 
-// * au click sur btnAddPic => modal 2/3----------------------------------------------------------------------------
 
-// todo ajouter toggle dans une fonction
+
+// * au click sur btnAddPic => modal 2/2----------------------------------------------------------------------------
+
+// todo ajouter toggle dans une fonction------------------------------------------------------------------------
 
 const btnAddPic = document.querySelector(".btnAddPic");
 const modalFooter = document.querySelector("#modalFooter");
 const titleModal = document.querySelector("#titleModal");
 
 const arrow = document.querySelector("#arrow");
-btnAddPic.addEventListener("click", () => {
+const modalForm = document.querySelector("dialog form");
+const hr1 =  document.querySelector("#hr1");
+const hr2 =  document.querySelector("#hr2");
+
+btnAddPic.addEventListener("click", function () {
   if (modalWrapper.open) {
     btnAddPic.remove();
     modalFooter.remove();
     titleModal.textContent = "Ajout photo";
     modalGrid.remove();
+    hr1.remove();
 
     // ajout de fleche gauche
     arrow.style.display = "flex";
+    modalForm.style.display = "flex";
+    modalForm.style.flexDirection = "column";
+  }
+});
+arrow.addEventListener("click", () => {
+  if (modalWrapper.open) {
+    arrow.style.display = "none";
+    modalForm.style.display = "none";
+
+
+    modalWrapper.appendChild(btnAddPic);
+    modalWrapper.appendChild(modalFooter);
+    titleModal.textContent = "Galerie photo";
+    modalWrapper.appendChild(modalGrid);
+    modalWrapper.appendChild(hr1);
 
 
 
+    // ajout de fleche gauche
+    arrow.style.display = "none";
 
-
-
-
-
-
-
-
-
-
-
-
-
-    
-
-
+    modalGrid.style.display = "grid";
+    modalGrid.style.alignItems = "center";
+    modalGrid.style.gridGap = "10px 10px";
+    modalGrid.style.gridTemplateColumns = "auto auto auto auto auto";
+    modalGrid.style.gridTemplateRow = "300px 300px 300px ";
   }
 });
 
-//  todo ajout icon image modal 2/3 <i class="fa-regular fa-image"></i>
+//  * ajout  image modal 2/2 <i class="fa-regular fa-image"></i>--------------------------------------------
 
-// todo formData
-    // http://localhost:5678/api/works
+let uploadInput = document.getElementById("file-upload");
+
+uploadInput.onchange = function () {
+  let image = new FileReader();
+
+  image.onload = function (e) {
+    document.getElementById("imagePreview").src = e.target.result;
+  };
+  image.readAsDataURL(this.files[0]);
+};
+
+// todo formData------------------------------------------------------------------
+
+const addWorkForm = document.querySelector("#addWorkForm");
+
+addWorkForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+  const formData = new FormData();
+
+  formData.append("image", document.getElementById("file-upload").files[0]);
+  formData.append("title", document.getElementById("titre").value);
+  formData.append("category", document.getElementById("catégorie").value);
+  console.log(formData);
+  fetch("http://localhost:5678/api/works", {
+    method: "POST",
+    headers: {
+      Authorization: "Bearer " + localStorage.getItem("token"),
+    },
+    body: formData,
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      createWork(data, gallery);
+      createWork(data, modalGrid, "modal");
+      modalWrapper.close();
+      modalWrapper.reset();
+    })
+    .catch((error) => console.error(error));
+});
