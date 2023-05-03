@@ -84,47 +84,51 @@
         <!-- todo               https://developer.mozilla.org/en-US/docs/Web/API/HTMLDialogElement/returnValue                     -->
 
         <dialog class="modal-wrapper" id="modal-wrapper">
-          <header id="modalHeader">
-            <i class="fa-solid fa-arrow-left" id="arrow"></i>
-            <i class="fa-solid fa-xmark"></i>
-          </header>
-          <h3 id="titleModal">Galerie photo</h3>
-          <div id="modalGrid"></div>
-          <hr id="hr1" />
-          <footer id="modalFooter">
-            <button class="btnAddPic" id="btnAddWork">Ajouter une photo</button>
-            <p id="deleteGallery">Supprimer la galerie</p>
-          </footer>
-          <!-- ** madale  2/2----------------------------------------------------------------------------------------------------------------------->
+          <div id="preventCloseModal">
+            <header id="modalHeader">
+              <i class="fa-solid fa-arrow-left" id="arrow"></i>
+              <i class="fa-solid fa-xmark"></i>
+            </header>
+            <h3 id="titleModal">Galerie photo</h3>
+            <div id="modalGrid"></div>
+            <hr id="hr1" />
+            <footer id="modalFooter">
+              <button class="btnAddPic" id="btnAddWork">
+                Ajouter une photo
+              </button>
+              <p id="deleteGallery">Supprimer la galerie</p>
+            </footer>
+            <!-- ** madale  2/2----------------------------------------------------------------------------------------------------------------------->
 
-          <form id="addWorkForm" method="dialog">
-            <div id="bluePicDiv">
-              <label for="file-upload" class="custom-file-upload">
-                <i class="fa-regular fa-image"></i>
-                <span>+ Ajouter photo</span>
-              </label>
-              <input
-                id="file-upload"
-                type="file"
-                accept="image/*"
-                name="image"
-                required
-              />
-              <img id="imagePreview" style="width: 300px" class="normal" />
-              <p id="formatImage">jpg, png : 4mo max</p>
-            </div>
-            <label for="titre" id="Titre"> Titre :</label>
-            <input type="text" name="title" required id="titre" />
-            <label for="catégorie" id="cat"> Catégorie : </label>
-            <select name="category" required id="catégorie">
-              <option value=""></option>
-              <option value="1">Objets</option>
-              <option value="2">Appartements</option>
-              <option value="3">Hôtéls /& restaurants</option>
-            </select>
-            <hr id="hr2" />
-            <button type="submit" id="btnvalidate">Valider</button>
-          </form>
+            <form id="addWorkForm" method="dialog">
+              <div id="bluePicDiv">
+                <label for="file-upload" class="custom-file-upload">
+                  <i class="fa-regular fa-image"></i>
+                  <span id="addPic">+ Ajouter photo</span>
+                </label>
+                <input
+                  id="file-upload"
+                  type="file"
+                  accept="image/*"
+                  name="image"
+                  required
+                />
+                <img id="imagePreview" />
+                <p id="formatImage">jpg, png : 4mo max</p>
+              </div>
+              <label for="titre" id="Titre"> Titre :</label>
+              <input type="text" name="title" required id="titre" />
+              <label for="catégorie" id="cat"> Catégorie : </label>
+              <select name="category" required id="catégorie">
+                <option value=""></option>
+                <option value="1">Objets</option>
+                <option value="2">Appartements</option>
+                <option value="3">Hôtéls /& restaurants</option>
+              </select>
+              <hr id="hr2" />
+              <button type="submit" id="btnvalidate">Valider</button>
+            </form>
+          </div>
         </dialog>
 
         <!-- * ------------------------------------- modal ----------------------------------------------------------------------------------------- -->

@@ -3,6 +3,7 @@ const buttonsCategories = new Set();
 const gallery = document.querySelector(".gallery");
 const modalWrapper = document.querySelector(".modal-wrapper");
 const modalGrid = document.querySelector("#modalGrid");
+const preventCloseModal = document.getElementById("preventCloseModal");
 
 function creatButton(content) {
   const buttonElement = document.createElement("button");
@@ -145,20 +146,16 @@ if (token !== null) {
 
 const BtnModificationWorks = document.querySelector("#adminWorks");
 
-BtnModificationWorks.addEventListener(
-  "click",
-  () => {
-    // console.log(BtnModificationWorks);
-    modalWrapper.showModal();
-
-    modalGrid.style.display = "grid";
-    modalGrid.style.alignItems = "center";
-    modalGrid.style.gridGap = "10px 10px";
-    modalGrid.style.gridTemplateColumns = "auto auto auto auto auto";
-    modalGrid.style.gridTemplateRow = "300px 300px 300px ";
-  }
-
-);
+BtnModificationWorks.addEventListener("click", () => {
+  // console.log(BtnModificationWorks);
+  modalWrapper.showModal();
+  preventCloseModal.style.display = "block";
+  modalGrid.style.display = "grid";
+  modalGrid.style.alignItems = "center";
+  modalGrid.style.gridGap = "10px 10px";
+  modalGrid.style.gridTemplateColumns = "auto auto auto auto auto";
+  modalGrid.style.gridTemplateRow = "300px 300px 300px ";
+});
 
 // * fermer la modale au click sur la croix ----------------------------------
 
@@ -167,38 +164,30 @@ const x = document.querySelector(".fa-xmark");
 x.addEventListener("click", () => {
   modalWrapper.close();
   addWorkForm.reset();
+  preventCloseModal.style.display = "none";
 });
 
 // ! fermer la modale hors champ -----------------------------------------------------------------------------------
-// Get the modal
-// const modal = document.getElementById("myModal");
+modalWrapper.addEventListener("click", () => {
+  modalWrapper.close();
+  preventCloseModal.style.display = "none";
+  addWorkForm.reset();
+});
 
+preventCloseModal.addEventListener("click", (event) => event.stopPropagation());
 
-// // When the user clicks anywhere outside of the modal, close it
-// window.onclick = function(event) {
-//   if (event.target == modalWrapper) {
-//     modal.style.display = "none";
-//   }
-//   else if (event.target.closest(".modal-content")) {
-//     // Clicked inside the modal
-//     return;
-//   }
-// };
-
-
-
+// ! fermer la modale hors champ -----------------------------------------------------------------------------------
 // * au click sur btnAddPic => modal 2/2----------------------------------------------------------------------------
 
-// todo ajouter toggle dans une fonction------------------------------------------------------------------------
+// todo fonction modalIsClosed------------------------------------------------------------------------
 
 const btnAddPic = document.querySelector(".btnAddPic");
 const modalFooter = document.querySelector("#modalFooter");
 const titleModal = document.querySelector("#titleModal");
-
 const arrow = document.querySelector("#arrow");
 const modalForm = document.querySelector("dialog form");
-const hr1 =  document.querySelector("#hr1");
-const hr2 =  document.querySelector("#hr2");
+const hr1 = document.querySelector("#hr1");
+const hr2 = document.querySelector("#hr2");
 
 btnAddPic.addEventListener("click", function () {
   if (modalWrapper.open) {
@@ -219,14 +208,11 @@ arrow.addEventListener("click", () => {
     arrow.style.display = "none";
     modalForm.style.display = "none";
 
-
     modalWrapper.appendChild(btnAddPic);
     modalWrapper.appendChild(modalFooter);
     titleModal.textContent = "Galerie photo";
     modalWrapper.appendChild(modalGrid);
     modalWrapper.appendChild(hr1);
-
-
 
     // ajout de fleche gauche
     arrow.style.display = "none";
@@ -239,24 +225,40 @@ arrow.addEventListener("click", () => {
   }
 });
 
-//  * ajout  image modal 2/2 <i class="fa-regular fa-image"></i>--------------------------------------------
+//  * ajout image modal 2/2 <i class="fa-regular fa-image"></i>--------------------------------------------
 
 let uploadInput = document.getElementById("file-upload");
+const faImg = document.querySelector(".fa-image");
+const addPic = document.querySelector("#addPic");
+const formatImag = document.querySelector("#formatImage");
+
 
 uploadInput.onchange = function () {
   let image = new FileReader();
 
   image.onload = function (e) {
     document.getElementById("imagePreview").src = e.target.result;
+    faImg.style.display = "none"
+    addPic.style.display = "none"
+    formatImag.style.display = "none"
+    
   };
   image.readAsDataURL(this.files[0]);
 };
 
-// todo formData------------------------------------------------------------------
 
+
+
+// * formData // Fetch Post------------------------------------------------------------------
+
+
+// todo if all inputs filed filed = > btnvalidate.style.backgroundColor = green
 const addWorkForm = document.querySelector("#addWorkForm");
 
 addWorkForm.addEventListener("submit", (event) => {
+
+
+
   event.preventDefault();
   const formData = new FormData();
 
@@ -275,8 +277,11 @@ addWorkForm.addEventListener("submit", (event) => {
     .then((data) => {
       createWork(data, gallery);
       createWork(data, modalGrid, "modal");
-      modalWrapper.close();
       modalWrapper.reset();
     })
-    .catch((error) => console.error(error));
+    .catch((error) => alert(error.message));
 });
+
+
+// todo fonction resetModalWrapper
+
