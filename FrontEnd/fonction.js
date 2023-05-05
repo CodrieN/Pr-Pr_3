@@ -11,6 +11,8 @@ function creatButton(content) {
   buttonsFilter.appendChild(buttonElement);
   buttonElement.classList.add("btn");
 }
+
+
 function createWork(work, container, type = "gallery") {
   const figureElement = document.createElement("figure");
   const imageElement = document.createElement("img");
@@ -49,7 +51,6 @@ function createWork(work, container, type = "gallery") {
     cross.addEventListener("mouseout", (event) => {
       event.target.style.display = "block";
     });
-
     trash.addEventListener("click", () => {
       // e.preventDefault();
       fetch("http://localhost:5678/api/works/" + work.id, {
@@ -57,9 +58,16 @@ function createWork(work, container, type = "gallery") {
         headers: { Authorization: "Bearer " + localStorage.getItem("token") },
       }).then((response) => {
         console.log(response);
+        if (response.ok) {
+          container.removeChild(figureElement);
+          // gallery.innerHTML = "";
+          data.forEach((work) => {
+            createWork(work, gallery);})
+        }
       });
     });
   }
+
   figureElement.appendChild(captionElement);
   container.appendChild(figureElement);
 }
@@ -167,7 +175,7 @@ x.addEventListener("click", () => {
   preventCloseModal.style.display = "none";
 });
 
-// ! fermer la modale hors champ -----------------------------------------------------------------------------------
+// * fermer la modale hors champ -----------------------------------------------------------------------------------
 modalWrapper.addEventListener("click", () => {
   modalWrapper.close();
   preventCloseModal.style.display = "none";
@@ -176,10 +184,9 @@ modalWrapper.addEventListener("click", () => {
 
 preventCloseModal.addEventListener("click", (event) => event.stopPropagation());
 
-// ! fermer la modale hors champ -----------------------------------------------------------------------------------
 // * au click sur btnAddPic => modal 2/2----------------------------------------------------------------------------
 
-// todo fonction modalIsClosed------------------------------------------------------------------------
+// ! todo fonction modalIsClosed------------------------------------------------------------------------
 
 const btnAddPic = document.querySelector(".btnAddPic");
 const modalFooter = document.querySelector("#modalFooter");
@@ -232,34 +239,45 @@ const faImg = document.querySelector(".fa-image");
 const addPic = document.querySelector("#addPic");
 const formatImag = document.querySelector("#formatImage");
 
-
 uploadInput.onchange = function () {
   let image = new FileReader();
 
   image.onload = function (e) {
     document.getElementById("imagePreview").src = e.target.result;
-    faImg.style.display = "none"
-    addPic.style.display = "none"
-    formatImag.style.display = "none"
-    
+    faImg.style.display = "none";
+    addPic.style.display = "none";
+    formatImag.style.display = "none";
   };
   image.readAsDataURL(this.files[0]);
 };
 
-
-
-
 // * formData // Fetch Post------------------------------------------------------------------
 
-
-// todo if all inputs filed filed = > btnvalidate.style.backgroundColor = green
 const addWorkForm = document.querySelector("#addWorkForm");
+const titleInput = document.getElementById("titre");
+const categoryInput = document.getElementById("catégorie");
+const imageInput = document.getElementById("file-upload");
+const btnValidate = document.getElementById("btnvalidate");
 
-addWorkForm.addEventListener("submit", (event) => {
+// ! todo if all inputs filed filed = > btnvalidate.style.backgroundColor = green
 
+function checkInputs() {
+  if (titleInput.value && categoryInput.value && imageInput.value) {
+    btnValidate.style.backgroundColor = "#1d6154";
+    btnValidate.style.border = "#1d6154";
+    btnValidate.style.color = "white";
+  } else {
+    btnValidate.style.backgroundColor = "grey";
+  }
+}
 
+titleInput.addEventListener("input", checkInputs);
+categoryInput.addEventListener("input", checkInputs);
+imageInput.addEventListener("input", checkInputs);
+// ! todo if all inputs filed filed = > btnvalidate.style.backgroundColor = green
 
-  event.preventDefault();
+addWorkForm.addEventListener("submit", () => {
+  // event.preventDefault();
   const formData = new FormData();
 
   formData.append("image", document.getElementById("file-upload").files[0]);
@@ -277,11 +295,10 @@ addWorkForm.addEventListener("submit", (event) => {
     .then((data) => {
       createWork(data, gallery);
       createWork(data, modalGrid, "modal");
-      modalWrapper.reset();
+      preventCloseModal.style.display = "none";
+
     })
     .catch((error) => alert(error.message));
 });
 
-
 // todo fonction resetModalWrapper
-

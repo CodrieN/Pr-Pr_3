@@ -400,9 +400,6 @@ main {
   margin-bottom: 30px;
 }
 
-form label {
-  margin-bottom: 5px;
-}
 
 /* ! taille de box à vérifier--------------------------------- */
 #email,
@@ -631,7 +628,7 @@ hr {
   justify-content: center;
   gap: 0px;
   background-color: #e8f1f6;
-  height: auto;
+  height: 185px;
   margin: 10px;
   padding: 10px;
 }
@@ -698,7 +695,7 @@ form * {
   flex-direction: column;
   align-items: center;
   width: 420px;
-  gap: 30px;
+  gap: 15px;
 }
 
 #btnvalidate {
