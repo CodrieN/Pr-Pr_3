@@ -4,6 +4,7 @@ const gallery = document.querySelector(".gallery");
 const modalWrapper = document.querySelector(".modal-wrapper");
 const modalGrid = document.querySelector("#modalGrid");
 const preventCloseModal = document.getElementById("preventCloseModal");
+let data = [];
 
 function creatButton(content) {
   const buttonElement = document.createElement("button");
@@ -11,7 +12,6 @@ function creatButton(content) {
   buttonsFilter.appendChild(buttonElement);
   buttonElement.classList.add("btn");
 }
-
 
 function createWork(work, container, type = "gallery") {
   const figureElement = document.createElement("figure");
@@ -51,8 +51,8 @@ function createWork(work, container, type = "gallery") {
     cross.addEventListener("mouseout", (event) => {
       event.target.style.display = "block";
     });
-    trash.addEventListener("click", () => {
-      // e.preventDefault();
+    trash.addEventListener("click", (e) => {
+      e.preventDefault();
       fetch("http://localhost:5678/api/works/" + work.id, {
         method: "DELETE",
         headers: { Authorization: "Bearer " + localStorage.getItem("token") },
@@ -62,7 +62,9 @@ function createWork(work, container, type = "gallery") {
           container.removeChild(figureElement);
           // gallery.innerHTML = "";
           data.forEach((work) => {
-            createWork(work, gallery);})
+            createWork(work, gallery, "gallery");
+            createWork(work, modalGrid, "modal");
+          });
         }
       });
     });
@@ -165,24 +167,6 @@ BtnModificationWorks.addEventListener("click", () => {
   modalGrid.style.gridTemplateRow = "300px 300px 300px ";
 });
 
-// * fermer la modale au click sur la croix ----------------------------------
-
-const x = document.querySelector(".fa-xmark");
-
-x.addEventListener("click", () => {
-  modalWrapper.close();
-  addWorkForm.reset();
-  preventCloseModal.style.display = "none";
-});
-
-// * fermer la modale hors champ -----------------------------------------------------------------------------------
-modalWrapper.addEventListener("click", () => {
-  modalWrapper.close();
-  preventCloseModal.style.display = "none";
-  addWorkForm.reset();
-});
-
-preventCloseModal.addEventListener("click", (event) => event.stopPropagation());
 
 // * au click sur btnAddPic => modal 2/2----------------------------------------------------------------------------
 
@@ -214,11 +198,13 @@ arrow.addEventListener("click", () => {
   if (modalWrapper.open) {
     arrow.style.display = "none";
     modalForm.style.display = "none";
-
+    modalWrapper.classList.add("mystyle");
+    
+    modalWrapper.appendChild(modalGrid);
     modalWrapper.appendChild(btnAddPic);
     modalWrapper.appendChild(modalFooter);
     titleModal.textContent = "Galerie photo";
-    modalWrapper.appendChild(modalGrid);
+   
     modalWrapper.appendChild(hr1);
 
     // ajout de fleche gauche
@@ -238,7 +224,7 @@ let uploadInput = document.getElementById("file-upload");
 const faImg = document.querySelector(".fa-image");
 const addPic = document.querySelector("#addPic");
 const formatImag = document.querySelector("#formatImage");
-
+const imagePreview = document.querySelector("#imagePreview");
 uploadInput.onchange = function () {
   let image = new FileReader();
 
@@ -296,9 +282,49 @@ addWorkForm.addEventListener("submit", () => {
       createWork(data, gallery);
       createWork(data, modalGrid, "modal");
       preventCloseModal.style.display = "none";
+      modalForm.reset();
+      imageInput.value = "";
+      imagePreview.style.display = "none";
+      faImg.style.display = "flex";
+      addPic.style.display = "flex";
+      formatImag.style.display = "flex";
 
     })
     .catch((error) => alert(error.message));
 });
 
 // todo fonction resetModalWrapper
+
+
+
+
+// * fermer la modale au click sur la croix ----------------------------------
+
+const x = document.querySelector(".fa-xmark");
+
+x.addEventListener("click", () => {
+  modalWrapper.close();
+  addWorkForm.reset();
+  preventCloseModal.style.display = "none";
+  modalForm.reset();
+  imageInput.value = "";
+  imagePreview.style.display = "none";
+  faImg.style.display = "flex";
+  addPic.style.display = "flex";
+  formatImag.style.display = "flex";
+});
+
+// * fermer la modale hors champ -----------------------------------------------------------------------------------
+modalWrapper.addEventListener("click", () => {
+  modalWrapper.close();
+  preventCloseModal.style.display = "none";
+  addWorkForm.reset();
+  modalForm.reset();
+  imageInput.value = "";
+  imagePreview.style.display = "none";
+  faImg.style.display = "flex";
+  addPic.style.display = "flex";
+  formatImag.style.display = "flex";
+});
+
+preventCloseModal.addEventListener("click", (event) => event.stopPropagation());
