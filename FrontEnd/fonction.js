@@ -4,7 +4,6 @@ const gallery = document.querySelector(".gallery");
 const modalWrapper = document.querySelector(".modal-wrapper");
 const modalGrid = document.querySelector("#modalGrid");
 const preventCloseModal = document.getElementById("preventCloseModal");
-let data = [];
 
 function creatButton(content) {
   const buttonElement = document.createElement("button");
@@ -60,11 +59,12 @@ function createWork(work, container, type = "gallery") {
         console.log(response);
         if (response.ok) {
           container.removeChild(figureElement);
+          gallery.removeChild(figureElement);
           // gallery.innerHTML = "";
-          data.forEach((work) => {
-            createWork(work, gallery, "gallery");
-            createWork(work, modalGrid, "modal");
-          });
+          // data.forEach((work) => {
+          //   createWork(work, gallery, "gallery");
+          //   createWork(work, modalGrid, "modal");
+          // });
         }
       });
     });
@@ -167,7 +167,6 @@ BtnModificationWorks.addEventListener("click", () => {
   modalGrid.style.gridTemplateRow = "300px 300px 300px ";
 });
 
-
 // * au click sur btnAddPic => modal 2/2----------------------------------------------------------------------------
 
 // ! todo fonction modalIsClosed------------------------------------------------------------------------
@@ -199,12 +198,13 @@ arrow.addEventListener("click", () => {
     arrow.style.display = "none";
     modalForm.style.display = "none";
     modalWrapper.classList.add("mystyle");
-    
+    modalWrapper.display = "none";
+
     modalWrapper.appendChild(modalGrid);
     modalWrapper.appendChild(btnAddPic);
     modalWrapper.appendChild(modalFooter);
     titleModal.textContent = "Galerie photo";
-   
+
     modalWrapper.appendChild(hr1);
 
     // ajout de fleche gauche
@@ -245,7 +245,7 @@ const categoryInput = document.getElementById("catégorie");
 const imageInput = document.getElementById("file-upload");
 const btnValidate = document.getElementById("btnvalidate");
 
-// ! todo if all inputs filed filed = > btnvalidate.style.backgroundColor = green
+// * todo if all inputs filed filed = > btnvalidate.style.backgroundColor = green
 
 function checkInputs() {
   if (titleInput.value && categoryInput.value && imageInput.value) {
@@ -260,7 +260,7 @@ function checkInputs() {
 titleInput.addEventListener("input", checkInputs);
 categoryInput.addEventListener("input", checkInputs);
 imageInput.addEventListener("input", checkInputs);
-// ! todo if all inputs filed filed = > btnvalidate.style.backgroundColor = green
+// * todo if all inputs filed filed = > btnvalidate.style.backgroundColor = green
 
 addWorkForm.addEventListener("submit", () => {
   // event.preventDefault();
@@ -288,15 +288,11 @@ addWorkForm.addEventListener("submit", () => {
       faImg.style.display = "flex";
       addPic.style.display = "flex";
       formatImag.style.display = "flex";
-
     })
     .catch((error) => alert(error.message));
 });
 
 // todo fonction resetModalWrapper
-
-
-
 
 // * fermer la modale au click sur la croix ----------------------------------
 

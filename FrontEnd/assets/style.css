@@ -245,7 +245,7 @@ a:hover {
   margin-bottom: 0.5em;
 }
 
-#portfolio h2 {
+#portfolioh2 {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -479,17 +479,16 @@ i,
   padding-top: 10px;
 }
 
-.mesProjets {
-  display: flex;
-  justify-content: center;
+#parentAdiminWorks{
+position: relative;
 }
 
-.adminWorks {
+
+#adminWorks {
   display: flex;
-  position: relative;
-  width: 0px;
+  position: absolute;
   top: -70px;
-  left: 700px;
+  left: 680px;
 }
 
 .adminPrivilege {
