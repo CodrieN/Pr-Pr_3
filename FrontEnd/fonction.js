@@ -22,6 +22,7 @@ function createWork(work, container, type = "gallery") {
   figureElement.appendChild(imageElement);
   if (type === "gallery") {
     captionElement.textContent = work.title;
+    figureElement.dataset.workId = work.id
   }
   if (type === "modal") {
     captionElement.textContent = "éditer";
@@ -59,12 +60,8 @@ function createWork(work, container, type = "gallery") {
         console.log(response);
         if (response.ok) {
           container.removeChild(figureElement);
-          gallery.removeChild(figureElement);
-          // gallery.innerHTML = "";
-          // data.forEach((work) => {
-          //   createWork(work, gallery, "gallery");
-          //   createWork(work, modalGrid, "modal");
-          // });
+          gallery.removeChild(document.querySelector('[data-work-id="'+work.id+'"]'));
+
         }
       });
     });
@@ -155,6 +152,13 @@ if (token !== null) {
 //***************MODAL*******************************************
 
 const BtnModificationWorks = document.querySelector("#adminWorks");
+const btnAddPic = document.querySelector(".btnAddPic");
+const modalFooter = document.querySelector("#modalFooter");
+const titleModal = document.querySelector("#titleModal");
+const arrow = document.querySelector("#arrow");
+const modalForm = document.querySelector("dialog form");
+const hr1 = document.querySelector("#hr1");
+const hr2 = document.querySelector("#hr2");
 
 BtnModificationWorks.addEventListener("click", () => {
   // console.log(BtnModificationWorks);
@@ -165,27 +169,33 @@ BtnModificationWorks.addEventListener("click", () => {
   modalGrid.style.gridGap = "10px 10px";
   modalGrid.style.gridTemplateColumns = "auto auto auto auto auto";
   modalGrid.style.gridTemplateRow = "300px 300px 300px ";
+  
+  arrow.style.display = "none";
+  modalForm.style.display = "none";
+  modalWrapper.classList.add("mystyle");
+  modalWrapper.display = "none";
+
+  btnAddPic.style.display = "flex";
+  modalFooter.style.display = "flex";
+  titleModal.textContent = "Galerie photo";
+  modalGrid.style.display = "grid";
+  hr1.style.display = "flex";
+
+  titleModal.textContent = "Galerie photo";
+
 });
 
 // * au click sur btnAddPic => modal 2/2----------------------------------------------------------------------------
 
 // ! todo fonction modalIsClosed------------------------------------------------------------------------
 
-const btnAddPic = document.querySelector(".btnAddPic");
-const modalFooter = document.querySelector("#modalFooter");
-const titleModal = document.querySelector("#titleModal");
-const arrow = document.querySelector("#arrow");
-const modalForm = document.querySelector("dialog form");
-const hr1 = document.querySelector("#hr1");
-const hr2 = document.querySelector("#hr2");
-
 btnAddPic.addEventListener("click", function () {
   if (modalWrapper.open) {
-    btnAddPic.remove();
-    modalFooter.remove();
+    btnAddPic.style.display = "none";
+    modalFooter.style.display = "none";
     titleModal.textContent = "Ajout photo";
-    modalGrid.remove();
-    hr1.remove();
+    modalGrid.style.display = "none";
+    hr1.style.display = "none";
 
     // ajout de fleche gauche
     arrow.style.display = "flex";
@@ -200,21 +210,16 @@ arrow.addEventListener("click", () => {
     modalWrapper.classList.add("mystyle");
     modalWrapper.display = "none";
 
-    modalWrapper.appendChild(modalGrid);
-    modalWrapper.appendChild(btnAddPic);
-    modalWrapper.appendChild(modalFooter);
+    btnAddPic.style.display = "flex";
+    modalFooter.style.display = "flex";
+    titleModal.textContent = "Galerie photo";
+    modalGrid.style.display = "grid";
+    hr1.style.display = "flex";
+
     titleModal.textContent = "Galerie photo";
 
-    modalWrapper.appendChild(hr1);
 
-    // ajout de fleche gauche
-    arrow.style.display = "none";
 
-    modalGrid.style.display = "grid";
-    modalGrid.style.alignItems = "center";
-    modalGrid.style.gridGap = "10px 10px";
-    modalGrid.style.gridTemplateColumns = "auto auto auto auto auto";
-    modalGrid.style.gridTemplateRow = "300px 300px 300px ";
   }
 });
 
@@ -229,10 +234,11 @@ uploadInput.onchange = function () {
   let image = new FileReader();
 
   image.onload = function (e) {
-    document.getElementById("imagePreview").src = e.target.result;
+    imagePreview.src = e.target.result;
     faImg.style.display = "none";
     addPic.style.display = "none";
     formatImag.style.display = "none";
+    imagePreview.style.display = "flex";
   };
   image.readAsDataURL(this.files[0]);
 };

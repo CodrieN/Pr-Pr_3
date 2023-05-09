@@ -246,12 +246,27 @@ a:hover {
 }
 
 #portfolioh2 {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   margin-bottom: 50px;
   margin-top: 70px;
 }
+
+
+#adminWorks {
+  position: absolute;
+  left: 60%;
+  top: 	40%;
+  font-size: small;
+  color: #000000;
+}
+
+#adminWorks:hover {
+  color: #b1663c;
+}
+
 
 /** filter buttons */
 
@@ -260,6 +275,7 @@ a:hover {
   justify-content: center;
   gap: 10px;
   margin-bottom: 2rem;
+  font-weight: lighter;
 }
 
 .btn {
@@ -479,17 +495,6 @@ i,
   padding-top: 10px;
 }
 
-#parentAdiminWorks{
-position: relative;
-}
-
-
-#adminWorks {
-  display: flex;
-  position: absolute;
-  top: -70px;
-  left: 680px;
-}
 
 .adminPrivilege {
   display: none;
@@ -542,7 +547,8 @@ dialog::backdrop {
   padding: 0px;
   width: 11px;
   height: 30px;
-  scale: 2;
+  font-size:x-large ;
+  
 }
 
 #modalGrid {
@@ -617,7 +623,7 @@ hr {
   top: 40px;
   left: 60px;
   display: none;
-  scale: 2;
+  font-size:x-large ;
 }
 
 #bluePicDiv {
@@ -659,7 +665,6 @@ form i {
 
 #file-upload {
   filter: blur(4000px);
-  scale: 0.1;
   margin: 0;
 }
 
