@@ -22,7 +22,7 @@ function createWork(work, container, type = "gallery") {
   figureElement.appendChild(imageElement);
   if (type === "gallery") {
     captionElement.textContent = work.title;
-    figureElement.dataset.workId = work.id
+    figureElement.dataset.workId = work.id;
   }
   if (type === "modal") {
     captionElement.textContent = "éditer";
@@ -60,8 +60,9 @@ function createWork(work, container, type = "gallery") {
         console.log(response);
         if (response.ok) {
           container.removeChild(figureElement);
-          gallery.removeChild(document.querySelector('[data-work-id="'+work.id+'"]'));
-
+          gallery.removeChild(
+            document.querySelector('[data-work-id="' + work.id + '"]')
+          );
         }
       });
     });
@@ -161,7 +162,6 @@ const hr1 = document.querySelector("#hr1");
 const hr2 = document.querySelector("#hr2");
 
 BtnModificationWorks.addEventListener("click", () => {
-  // console.log(BtnModificationWorks);
   modalWrapper.showModal();
   preventCloseModal.style.display = "block";
   modalGrid.style.display = "grid";
@@ -169,7 +169,7 @@ BtnModificationWorks.addEventListener("click", () => {
   modalGrid.style.gridGap = "10px 10px";
   modalGrid.style.gridTemplateColumns = "auto auto auto auto auto";
   modalGrid.style.gridTemplateRow = "300px 300px 300px ";
-  
+
   arrow.style.display = "none";
   modalForm.style.display = "none";
   modalWrapper.classList.add("mystyle");
@@ -182,7 +182,6 @@ BtnModificationWorks.addEventListener("click", () => {
   hr1.style.display = "flex";
 
   titleModal.textContent = "Galerie photo";
-
 });
 
 // * au click sur btnAddPic => modal 2/2----------------------------------------------------------------------------
@@ -217,9 +216,6 @@ arrow.addEventListener("click", () => {
     hr1.style.display = "flex";
 
     titleModal.textContent = "Galerie photo";
-
-
-
   }
 });
 
@@ -276,6 +272,7 @@ addWorkForm.addEventListener("submit", () => {
   formData.append("title", document.getElementById("titre").value);
   formData.append("category", document.getElementById("catégorie").value);
   console.log(formData);
+
   fetch("http://localhost:5678/api/works", {
     method: "POST",
     headers: {
