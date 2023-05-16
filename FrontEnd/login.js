@@ -19,7 +19,7 @@ function verifyLogin(email, password) {
     .then((response) => response.json())
     .then((data) => {
       // Vérifier la réponse du serveur
-      // !console.log(data);
+      // *console.log(data);
       if (data.userId && data.token) {
         // Connexion réussie, rediriger l'utilisateur vers la page d'accueil
         window.location.href = "./index.html";

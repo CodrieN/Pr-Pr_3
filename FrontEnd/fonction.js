@@ -57,7 +57,6 @@ function createWork(work, container, type = "gallery") {
         method: "DELETE",
         headers: { Authorization: "Bearer " + localStorage.getItem("token") },
       }).then((response) => {
-        console.log(response);
         if (response.ok) {
           container.removeChild(figureElement);
           gallery.removeChild(
@@ -186,7 +185,7 @@ BtnModificationWorks.addEventListener("click", () => {
 
 // * au click sur btnAddPic => modal 2/2----------------------------------------------------------------------------
 
-// ! todo fonction modalIsClosed------------------------------------------------------------------------
+// * todo fonction modalIsClosed------------------------------------------------------------------------
 
 btnAddPic.addEventListener("click", function () {
   if (modalWrapper.open) {
